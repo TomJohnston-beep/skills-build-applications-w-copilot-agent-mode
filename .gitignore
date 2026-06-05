@@ -16,6 +16,9 @@ node_modules
 
 # production
 /build
+**/dist/
+
+octofit-tracker/backend/data/
 
 # misc
 .DS_Store

@@ -4,6 +4,16 @@
 
 Hey TomJohnston-beep!
 
+- Frontend support for GitHub Codespaces uses <code>VITE_CODESPACE_NAME</code>.
+- Define <code>VITE_CODESPACE_NAME</code> in <code>octofit-tracker/frontend/.env.local</code> when running in Codespaces.
+- The React app falls back to <code>http://localhost:8000</code> if the variable is unset.
+
+Example <code>octofit-tracker/frontend/.env.local</code>:
+
+```env
+VITE_CODESPACE_NAME=your-codespace-name
+```
+
 Mona here. I'm done preparing your exercise. Hope you enjoy! 💚
 
 Remember, it's self-paced so feel free to take a break! ☕️
