@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { body, validationResult } from 'express-validator';
 import Activity from '../models/activity';
 
@@ -22,7 +22,7 @@ router.post(
     body('userId').isString().notEmpty(),
     body('performedAt').optional().isISO8601()
   ],
-  async (req, res) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
