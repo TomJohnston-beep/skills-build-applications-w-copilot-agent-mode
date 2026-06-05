@@ -10,7 +10,7 @@ const app = express();
 const port = Number(process.env.PORT || 8000);
 const codespaceName = process.env.CODESPACE_NAME;
 const codespacesApiUrl = codespaceName
-  ? `https://${codespaceName}-8000.githubpreview.dev`
+  ? `https://${codespaceName}-8000.app.github.dev`
   : null;
 const apiBaseUrl = codespacesApiUrl || `http://localhost:${port}`;
 
@@ -34,6 +34,7 @@ app.get('/api/health', (_, res) => {
 
 app.listen(port, () => {
   console.log(`Backend running on port ${port}`);
+  console.log(`API base URL: ${apiBaseUrl}`);
   if (codespacesApiUrl) {
     console.log(`Codespaces API URL: ${codespacesApiUrl}`);
   }
