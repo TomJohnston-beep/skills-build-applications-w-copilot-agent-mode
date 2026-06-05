@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import usersRouter from './routes/users';
 import teamsRouter from './routes/teams';
 import activitiesRouter from './routes/activities';
@@ -14,6 +15,21 @@ const codespacesApiUrl = codespaceName
 const apiBaseUrl = codespacesApiUrl || `http://localhost:${port}`;
 
 app.use(express.json());
+
+// Configure CORS to allow frontend dev server and Codespaces URL when present
+const allowedOrigins = ['http://localhost:5173', 'http://127.0.0.1:5173'];
+if (codespacesApiUrl) {
+  allowedOrigins.push(codespacesApiUrl);
+}
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // allow requests with no origin (like curl, server-to-server)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error('CORS policy: Origin not allowed'));
+  }
+}));
 
 app.use('/api/users', usersRouter);
 app.use('/api/teams', teamsRouter);
