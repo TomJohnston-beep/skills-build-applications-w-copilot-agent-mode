@@ -1,3 +1,4 @@
+import React from 'react';
 import { useFetch, getApiBaseUrl } from '../lib/api';
 
 export default function Activities() {

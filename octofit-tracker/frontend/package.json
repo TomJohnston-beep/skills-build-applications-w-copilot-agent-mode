@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
@@ -15,6 +16,10 @@
     "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
+    "vitest": "^1.0.0",
+    "jsdom": "^22.1.0",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^15.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.0.2",
