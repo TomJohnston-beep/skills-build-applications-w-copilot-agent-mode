@@ -1,40 +1,7 @@
-import { useEffect, useState } from 'react';
-
-// Example Codespaces API endpoint:
-// https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/activities
-const getApiBaseUrl = () => {
-  const codespace = import.meta.env.VITE_CODESPACE_NAME;
-  return codespace && codespace.trim() !== ''
-    ? `https://${codespace}-8000.app.github.dev`
-    : 'http://localhost:8000';
-};
-
-const normalizeResponse = (payload) => {
-  if (Array.isArray(payload)) return payload;
-  if (!payload || typeof payload !== 'object') return [];
-  const wrapped = payload;
-  const arrayKeys = ['data', 'results', 'items', 'entries', 'docs'];
-  for (const key of arrayKeys) {
-    if (Array.isArray(wrapped[key])) {
-      return wrapped[key];
-    }
-  }
-  const firstArray = Object.values(wrapped).find(Array.isArray);
-  return Array.isArray(firstArray) ? firstArray : [payload];
-};
+import { useFetch, getApiBaseUrl } from '../lib/api';
 
 export default function Activities() {
-  const [activities, setActivities] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch(`${getApiBaseUrl()}/api/activities`)
-      .then((response) => response.json())
-      .then((data) => setActivities(normalizeResponse(data)))
-      .catch((err) => setError(err.message || String(err)))
-      .finally(() => setLoading(false));
-  }, []);
+  const { data: activities, loading, error } = useFetch('/api/activities');
 
   return (
     <div className="container py-5">
@@ -42,8 +9,8 @@ export default function Activities() {
       <p className="text-muted">Using API endpoint: <code>{`${getApiBaseUrl()}/api/activities`}</code></p>
       {loading && <p>Loading activities...</p>}
       {error && <div className="alert alert-danger">{error}</div>}
-      {!loading && !error && activities.length === 0 && <p>No activities found.</p>}
-      {!loading && !error && activities.length > 0 && (
+      {!loading && !error && (!activities || activities.length === 0) && <p>No activities found.</p>}
+      {!loading && !error && activities && activities.length > 0 && (
         <ul className="list-group">
           {activities.map((item, index) => (
             <li className="list-group-item" key={index}>{JSON.stringify(item)}</li>
