@@ -5,19 +5,16 @@ import Teams from './components/Teams';
 import Users from './components/Users';
 import Workouts from './components/Workouts';
 
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
-const apiBaseUrl = codespaceName && codespaceName.trim() !== ''
-  ? `https://${codespaceName}-8000.app.github.dev`
-  : 'http://localhost:8000';
+import { getApiBaseUrl } from './lib/api';
 
 function Home() {
   return (
     <div className="container py-5">
       <h1>OctoFit Tracker</h1>
       <p>Track workouts, teams, activities, users, and leaderboard standings with a Codespaces-aware API.</p>
-      <div className="alert alert-info">
+        <div className="alert alert-info">
         <p className="mb-1">Frontend API base URL:</p>
-        <code>{apiBaseUrl}/api/[resource]</code>
+        <code>{`${getApiBaseUrl()}/api/[resource]`}</code>
       </div>
       <p>
         Define <code>VITE_CODESPACE_NAME</code> in <code>.env.local</code> for GitHub Codespaces.
