@@ -46,13 +46,8 @@ app.get('/api/health', (_, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Backend running on port ${port}`);
-  console.log(`API base URL: ${apiBaseUrl}`);
-  if (codespacesApiUrl) {
-    console.log(`Codespaces API URL: ${codespacesApiUrl}`);
-  }
-});
+// Note: server is not started here. Call `app.listen(port)` after a successful
+// database connection to ensure the app is ready to serve requests.
 
 export default app;
 export { apiBaseUrl, codespaceName, codespacesApiUrl, port };
