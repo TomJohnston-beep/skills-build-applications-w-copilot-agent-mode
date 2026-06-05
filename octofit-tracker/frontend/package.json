@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.8",
-    "react": "^19",
-    "react-dom": "^19",
+    "react": "^20",
+    "react-dom": "^20",
     "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
